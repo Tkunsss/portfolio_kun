@@ -380,6 +380,27 @@ textarea {
   line-height: 1.8;
 }
 
+.contact-list li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.contact-icon {
+  display: inline-grid;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--cyan);
+  font-family: 'Fira Code', monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
 .contact-link {
   color: var(--text);
   text-decoration: underline;

@@ -326,15 +326,15 @@ export default function App() {
               </p>
               <ul className="contact-list">
                 <li>
-                  GitHub:{' '}
+                  <span className="contact-icon" aria-hidden="true">GH</span>
                   <a href="https://github.com/Tkunsss" target="_blank" rel="noreferrer" className="contact-link">
                     github.com/Tkunsss
                   </a>
                 </li>
                 <li>
-                  LinkedIn:{' '}
+                  <span className="contact-icon" aria-hidden="true">in</span>
                   <a
-                    href="https://www.linkedin.com/in/sotikun-chhayny"
+                    href="https://www.linkedin.com/in/chhayny-sotikun-026639204/"
                     target="_blank"
                     rel="noreferrer"
                     className="contact-link"
@@ -343,9 +343,9 @@ export default function App() {
                   </a>
                 </li>
                 <li>
-                  Email:{' '}
-                  <a href="mailto:sotikun.chhayny@student.cadt.edu.kh" className="contact-link">
-                    sotikun.chhayny@student.cadt.edu.kh
+                  <span className="contact-icon" aria-hidden="true">@</span>
+                  <a href="mailto:sotikun6@gmail.com" className="contact-link">
+                    sotikun6@gmail.com
                   </a>
                 </li>
               </ul>
