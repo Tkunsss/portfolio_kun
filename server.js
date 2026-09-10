@@ -7,9 +7,21 @@ dotenv.config();
 
 const app = express();
 const port = Number(process.env.PORT || 3001);
+const configuredFrontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+const frontendOrigin = configuredFrontendUrl.startsWith('http://') || configuredFrontendUrl.startsWith('https://')
+  ? configuredFrontendUrl
+  : `https://${configuredFrontendUrl}`;
 
-app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:5173' }));
+app.use(cors({ origin: frontendOrigin }));
 app.use(express.json());
+
+app.get('/', (_req, res) => {
+  res.status(200).json({
+    service: 'portfolio-email-api',
+    status: 'running',
+    health: '/health',
+  });
+});
 
 app.get('/health', (_req, res) => {
   res.status(200).json({ status: 'ok' });
@@ -40,6 +52,9 @@ app.post('/api/contact', async (req, res) => {
       host: smtpHost,
       port: smtpPort,
       secure: smtpPort === 465,
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 15000,
       auth: {
         user: smtpUser,
         pass: smtpPass,
