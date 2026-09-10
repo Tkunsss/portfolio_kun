@@ -42,7 +42,7 @@ app.post('/api/contact', async (req, res) => {
   const toEmail = process.env.TO_EMAIL;
 
   if (!smtpHost || !smtpUser || !smtpPass || !fromEmail || !toEmail) {
-    if (!process.env.RESEND_API_KEY || !process.env.RESEND_FROM_EMAIL) {
+    if (!process.env.RESEND_API_KEY || !process.env.RESEND_FROM_EMAIL || !process.env.RESEND_TO_EMAIL) {
       return res.status(500).json({
         message: 'Email server is not configured. Add Resend or SMTP environment variables.',
       });
@@ -65,7 +65,7 @@ app.post('/api/contact', async (req, res) => {
         },
         body: JSON.stringify({
           from: process.env.RESEND_FROM_EMAIL,
-          to: [toEmail || process.env.RESEND_TO_EMAIL],
+          to: [process.env.RESEND_TO_EMAIL],
           reply_to: email,
           ...emailDetails,
         }),
