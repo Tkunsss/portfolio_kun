@@ -77,13 +77,17 @@ export default function App() {
 
     try {
       const apiUrl = import.meta.env.VITE_API_URL || '';
+      const controller = new AbortController();
+      const timeoutId = window.setTimeout(() => controller.abort(), 20000);
       const response = await fetch(`${apiUrl}/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
+        signal: controller.signal,
       });
+      window.clearTimeout(timeoutId);
 
       const data = await response.json();
 
@@ -96,7 +100,9 @@ export default function App() {
     } catch (error) {
       setStatus({
         type: 'error',
-        message: error.message || 'Something went wrong. Please try again.',
+        message: error.name === 'AbortError'
+          ? 'The email server took too long to respond. Please try again.'
+          : error.message || 'Something went wrong. Please try again.',
       });
     }
   };
@@ -319,9 +325,29 @@ export default function App() {
                 and opportunities to learn from experienced developers.
               </p>
               <ul className="contact-list">
-                <li>GitHub: github.com/Tkunsss</li>
-                <li>LinkedIn: Sotikun Chhayny</li>
-                <li>Email: sotikun.chhayny@student.cadt.edu.kh</li>
+                <li>
+                  GitHub:{' '}
+                  <a href="https://github.com/Tkunsss" target="_blank" rel="noreferrer" className="contact-link">
+                    github.com/Tkunsss
+                  </a>
+                </li>
+                <li>
+                  LinkedIn:{' '}
+                  <a
+                    href="https://www.linkedin.com/in/sotikun-chhayny"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="contact-link"
+                  >
+                    Sotikun Chhayny
+                  </a>
+                </li>
+                <li>
+                  Email:{' '}
+                  <a href="mailto:sotikun.chhayny@student.cadt.edu.kh" className="contact-link">
+                    sotikun.chhayny@student.cadt.edu.kh
+                  </a>
+                </li>
               </ul>
             </div>
 

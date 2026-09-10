@@ -380,6 +380,20 @@ textarea {
   line-height: 1.8;
 }
 
+.contact-link {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: rgba(34, 211, 238, 0.45);
+  text-underline-offset: 3px;
+  transition: color 160ms ease, text-decoration-color 160ms ease;
+}
+
+.contact-link:hover,
+.contact-link:focus-visible {
+  color: var(--cyan);
+  text-decoration-color: currentColor;
+}
+
 .architecture-flow {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
