@@ -41,8 +41,9 @@ const projectCards = [
     description:
       'A Java application designed around object-oriented modeling and database interactions with DAO patterns and structured SQL access.',
     stack: ['Java', 'MySQL', 'Maven', 'OOP'],
+    image: '/MBS.png',
     visual: 'BOOKING',
-    links: [{ label: 'View', href: '#' }],
+    links: [{ label: 'View', href: 'https://github.com/Tkunsss/Movie-booking-system/tree/final_update' }],
   },
 ];
 
@@ -56,7 +57,7 @@ const experienceCards = [
     highlight: 'Certificate of Completion',
     visual: 'NET',
     image: 'TBAB.png',
-    links: [{ label: 'Certificate', href: '#' }],
+    links: [{ label: 'Certificate', href: 'https://coursera.org/verify/A7A9ATKRAMP4' }],
   },
   {
     title: 'Technical Support Fundamentals',
@@ -67,7 +68,7 @@ const experienceCards = [
     highlight: 'Certificate of Completion',
     visual: 'SUPPORT',
     image: '/TSF.png',
-    links: [{ label: 'Certificate', href: '#' }],
+    links: [{ label: 'Certificate', href: 'https://coursera.org/verify/8RNVH6UH7RLR' }],
   },
 ];
 
