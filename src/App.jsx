@@ -12,10 +12,18 @@ const navItems = [
 const projectCards = [
   {
     title: 'NEMDS',
-    tag: 'Flagship system',
+    tag: 'Team project',
     description:
       'National Centralized Emergency Medical Dispatch System built around API-driven emergency workflows, role-based dispatch logic, and relational data models.',
     stack: ['ASP.NET Core', 'React', 'MySQL', 'REST API'],
+    image: '/NEMDS.png',
+    visual: 'NEMDS',
+    links: [
+      { label: 'Admin', href: 'https://admin-olive-delta-93.vercel.app/' },
+      { label: 'Caller', href: 'https://nemds-caller.vercel.app/' },
+      { label: 'Dispatcher', href: 'https://nemds-dispatcher.vercel.app/' },
+      { label: 'Driver', href: 'https://nemds-driver.vercel.app/' },
+    ],
   },
   {
     title: 'Local Service Finder',
@@ -23,6 +31,9 @@ const projectCards = [
     description:
       'A service-discovery app helping users find local providers in Cambodia, with a frontend-first experience and collaborative Git workflow.',
     stack: ['React', 'JavaScript', 'GitHub', 'UI Design'],
+    image: '/LS.png',
+    visual: 'SERVICE',
+    links: [{ label: 'Open', href: 'https://local-service-seven.vercel.app/' }],
   },
   {
     title: 'Movie Booking System',
@@ -30,6 +41,33 @@ const projectCards = [
     description:
       'A Java application designed around object-oriented modeling and database interactions with DAO patterns and structured SQL access.',
     stack: ['Java', 'MySQL', 'Maven', 'OOP'],
+    visual: 'BOOKING',
+    links: [{ label: 'View', href: '#' }],
+  },
+];
+
+const experienceCards = [
+  {
+    title: 'The Bits and Bytes of Computer Networking',
+    tag: 'Google / Coursera',
+    period: '2023',
+    description:
+      'Completed the Google-authorized networking course covering fundamental networking concepts, protocols, data flow, and connectivity essentials.',
+    highlight: 'Certificate of Completion',
+    visual: 'NET',
+    image: 'TBAB.png',
+    links: [{ label: 'Certificate', href: '#' }],
+  },
+  {
+    title: 'Technical Support Fundamentals',
+    tag: 'Google / Coursera',
+    period: '2023',
+    description:
+      'Completed the Google-authorized technical support course focused on troubleshooting, customer support basics, and core IT problem-solving skills.',
+    highlight: 'Certificate of Completion',
+    visual: 'SUPPORT',
+    image: '/TSF.png',
+    links: [{ label: 'Certificate', href: '#' }],
   },
 ];
 
@@ -65,6 +103,7 @@ const initialForm = {
 export default function App() {
   const [formData, setFormData] = useState(initialForm);
   const [status, setStatus] = useState({ type: 'idle', message: '' });
+  const [activeVisualId, setActiveVisualId] = useState(null);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -271,24 +310,124 @@ export default function App() {
           </div>
 
           <div className="project-list">
-            {projectCards.map((project) => (
-              <article key={project.title} className="project-card">
-                <div className="project-header">
-                  <div>
-                    <span className="project-tag">{project.tag}</span>
-                    <h3>{project.title}</h3>
+            {projectCards.map((project) => {
+              const isVisible = activeVisualId === project.title;
+
+              return (
+                <article key={project.title} className="project-card">
+                  <div
+                    className={`project-visual ${isVisible ? 'is-active' : ''}`}
+                    aria-label={project.title}
+                    onMouseEnter={() => setActiveVisualId(project.title)}
+                    onMouseLeave={() => setActiveVisualId(null)}
+                    onClick={() => setActiveVisualId((prev) => (prev === project.title ? null : project.title))}
+                    onFocus={() => setActiveVisualId(project.title)}
+                    onBlur={() => setActiveVisualId(null)}
+                    tabIndex={0}
+                  >
+                    {project.image ? (
+                      project.links && project.links.length > 1 ? (
+                        <>
+                          <img src={project.image} alt={project.title} />
+                          <div className="project-image-links">
+                            {project.links.map((link) => (
+                              <a
+                                key={`${project.title}-${link.label}`}
+                                href={link.href}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="project-inline-link"
+                              >
+                                {link.label}
+                              </a>
+                            ))}
+                          </div>
+                        </>
+                      ) : (
+                        <a
+                          href={project.links && project.links[0] ? project.links[0].href : '#'}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="project-image-link"
+                        >
+                          <img src={project.image} alt={project.title} />
+                        </a>
+                      )
+                    ) : (
+                      <span>{project.visual || project.title}</span>
+                    )}
                   </div>
-                </div>
-                <p>{project.description}</p>
-                <div className="chip-row">
-                  {project.stack.map((chip) => (
-                    <span key={chip} className="chip">
-                      {chip}
-                    </span>
-                  ))}
-                </div>
-              </article>
-            ))}
+
+                  <div className="project-content">
+                    <div className="project-header">
+                      <div>
+                        <span className="project-tag">{project.tag}</span>
+                        <h3>{project.title}</h3>
+                      </div>
+                    </div>
+                    <p>{project.description}</p>
+                    <div className="chip-row">
+                      {project.stack.map((chip) => (
+                        <span key={chip} className="chip">
+                          {chip}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
+        <section className="section-spacing">
+          <div className="section-heading">
+            <span>03.1</span>
+            <h2>Experience & Training</h2>
+          </div>
+
+          <div className="experience-grid">
+            {experienceCards.map((item) => {
+              const isVisible = activeVisualId === item.title;
+
+              return (
+                <article key={item.title} className="experience-card">
+                  <div
+                    className={`experience-visual ${isVisible ? 'is-active' : ''}`}
+                    aria-label={item.title}
+                    onMouseEnter={() => setActiveVisualId(item.title)}
+                    onMouseLeave={() => setActiveVisualId(null)}
+                    onClick={() => setActiveVisualId((prev) => (prev === item.title ? null : item.title))}
+                    onFocus={() => setActiveVisualId(item.title)}
+                    onBlur={() => setActiveVisualId(null)}
+                    tabIndex={0}
+                  >
+                    {item.image ? (
+                      <a
+                        href={item.links && item.links[0] ? item.links[0].href : '#'}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="project-image-link"
+                      >
+                        <img src={item.image} alt={item.title} />
+                      </a>
+                    ) : (
+                      <span>{item.visual}</span>
+                    )}
+                  </div>
+
+                  <div className="experience-body">
+                    <div className="experience-header-row">
+                      <span className="project-tag">{item.tag}</span>
+                      <span className="experience-period">{item.period}</span>
+                    </div>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                    <strong>{item.highlight}</strong>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </section>
 
